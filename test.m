@@ -28,7 +28,7 @@ sub = cal_loc - real_loc;
 %% 最小二乘平差
 [coff,A,L] = LSA(real_loc,sub);
 % nnnnn
-% figure;
+% figure;dddd
 % hold on;
 % plot(L,'*');
 % plot(A*coff);
