@@ -1,23 +1,23 @@
 clear; clc; close all;
  
-% %% ¶ÁÈ¡Í¼Ïñ
+% %% ï¿½ï¿½È¡Í¼ï¿½ï¿½
 % tic
 % image = imread('data//1.JP2');
 % toc
 % imgRGB = image(:,:,1:3);
 % 
-% %% Í¼ÏñÔöÇ¿
+% %% Í¼ï¿½ï¿½ï¿½ï¿½Ç¿
 % low_in = 0; high_in = 1;
 % low_out = 0; high_out = 1;
 % gamma = 0.7;
 % img2 =imadjust(imgRGB,[low_in high_in],[low_out, high_out],gamma);
 % imshow(img2);
 
-%% ¶ÁÈ¡RPCºÍGCP
+%% ï¿½ï¿½È¡RPCï¿½ï¿½GCP
 [X,Y,Z,real_loc,GCPnum] = readGCP('data//GCP2.xlsx');
 [DRPC,IRPC,Normalize_par] = readrpc('data//RPC2.XML');
 
-%% ¼ÆËãr, c, Îó²î
+%% ï¿½ï¿½ï¿½ï¿½r, c, ï¿½ï¿½ï¿½
 r = zeros(GCPnum,1); c = zeros(GCPnum,1);
 for i = 1:GCPnum   
     [r(i),c(i)] = cal_RPC(X(i),Y(i),Z(i),DRPC,Normalize_par);
@@ -25,7 +25,7 @@ end
 cal_loc = [r,c];
 sub = cal_loc - real_loc;
 
-%% ×îÐ¡¶þ³ËÆ½²î
+%% ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½
 [coff,A,L] = LSA(real_loc,sub);
 % nnnnn
 % figure;dddd
@@ -44,8 +44,6 @@ sub = cal_loc - real_loc;
 % end
 % hold off;
 % grid on;  xiaohuaidan
-% zky
-%tttt
-% kkkkk
+% fggffdtfgh
 
 
