@@ -17,7 +17,7 @@ clear; clc; close all;
 [X,Y,Z,real_loc,GCPnum] = readGCP('data//GCP2.xlsx');
 [DRPC,IRPC,Normalize_par] = readrpc('data//RPC2.XML');
 
-%% ï¿½ï¿½ï¿½ï¿½r, c, ï¿½ï¿½ï¿½
+%% ï¿½ï¿½ï¿½ï¿½r, c, ï¿½ï¿½ï¿?
 r = zeros(GCPnum,1); c = zeros(GCPnum,1);
 for i = 1:GCPnum   
     [r(i),c(i)] = cal_RPC(X(i),Y(i),Z(i),DRPC,Normalize_par);
@@ -46,4 +46,4 @@ sub = cal_loc - real_loc;
 % grid on;  xiaohuaidan
 % fggffdtfgh
 
-
+%hhhhh
