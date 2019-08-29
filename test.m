@@ -14,25 +14,30 @@ clear; clc; close all;
 % imshow(img2);
 
 %% read RPC and GCP
-[X,Y,Z,real_loc,GCPnum] = readGCP('data//GCP2.xlsx');
+[geoloc,real_loc,GCPnum] = readGCP('data//GCP2.xlsx');
 [DRPC,IRPC,Normalize_par] = readrpc('data//RPC2.XML');
 
-%% caculate r, c
-r = zeros(GCPnum,1); c = zeros(GCPnum,1);
-for i = 1:GCPnum   
-    [r(i),c(i)] = cal_RPC(X(i),Y(i),Z(i),DRPC,Normalize_par);
-end
-cal_loc = [r,c];
-delta_loc = real_loc - cal_loc;
-
-%% least square
-[coff,A,L] = LSA(real_loc,delta_loc);
-L_ = A*coff;
-compen_loc = zeros(size(real_loc));
-compen_loc(:,1) = L(1:2:end-1);
-compen_loc(:,2) = L(2:2:end);
-after_compen_loc = cal_loc + compen_loc;
-delta_loc2 = real_loc - after_compen_loc;
-
-save data coff Normalize_par real_loc cal_loc DRPC X Y Z
+% RPC1 = RPC(DRPC,Normalize_par);
+% [r,c] = RPC1.obj2img(geoloc);
+gcps = GCPs(geoloc,IRPC,Normalize_par);
+r = gcps.r;
+c = gcps.c;
+% %% caculate r, c
+% r = zeros(GCPnum,1); c = zeros(GCPnum,1);
+% for i = 1:GCPnum   
+%     [r(i),c(i)] = cal_RPC(geoloc(i,1),geoloc(i,2),geoloc(i,3),DRPC,Normalize_par);
+% end
+% cal_loc = [r,c];
+% delta_loc = real_loc - cal_loc;
+% % 
+% %% least square
+% [coff,A,L] = LSA(real_loc,delta_loc);
+% L_ = A*coff;
+% compen_loc = zeros(size(real_loc));
+% compen_loc(:,1) = L(1:2:end-1);
+% compen_loc(:,2) = L(2:2:end);
+% after_compen_loc = cal_loc + compen_loc;
+% delta_loc2 = real_loc - after_compen_loc;
+% 
+% save data coff Normalize_par real_loc cal_loc DRPC geoloc
 
