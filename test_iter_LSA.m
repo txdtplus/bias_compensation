@@ -4,6 +4,7 @@ coff0 = coff;
 n_par = Normalize_par;
 
 %% caculate w
+n = 1;   % image number
 m = size(real_loc,1);
 r = real_loc(:,1); cal_r = cal_loc(:,1);
 c = real_loc(:,2); cal_c = cal_loc(:,2);
@@ -39,7 +40,27 @@ Xn = (X-LONG_par(2))/LONG_par(1);
 Yn = (Y-LAT_par(2))/LAT_par(1);
 Zn = (Z-H_par(2))/H_par(1);
 
+zero_m = zeros(m,1);
+one_m = ones(m,1);
+u = zeros(20,m);
+u(1,:) = 1;     u(2,:) = Xn;    u(3,:) = Yn;       u(4,:) = Zn;
+u(5,:) = Xn.*Yn; u(6,:) = Xn.*Zn; u(7,:) = Yn.*Zn;    u(8,:) = Xn.^2;
+u(9,:) = Yn.^2;  u(10,:) = Zn.^2; u(11,:) = Xn.*Yn.*Zn; u(12,:) = Xn.^3;
+u(13,:) = Xn.*Yn.^2; u(14,:) = Xn.*Zn.^2; u(15,:) = Xn.^2.*Yn; u(16,:) = Yn.^3;
+u(17,:) = Yn.*Zn.^2; u(18,:) = Xn.^2.*Zn; u(19,:) = Yn.^2.*Zn;  u(20,:) = Zn.^3;
+du_dXn = [zero_m one_m zero_m zero_m Yn Zn zero_m 2*Xn zero_m zero_m Yn.*Zn 3.*Xn.^2 Yn.^2 Zn.^2 2*Xn.*Yn zero_m zero_m 2.*Xn.*Zn zero_m zero_m]';
+du_dYn = [zero_m zero_m one_m zero_m Xn zero_m Zn zero_m 2*Yn zero_m Xn.*Zn zero_m 2.*Xn.*Yn zero_m Xn.^2 3.*Yn.^2 Zn.^2 zero_m 2.*Yn.*Zn zero_m]';
+du_dZn = [zero_m zero_m zero_m one_m zero_m Xn Yn zero_m zero_m 2*Zn Xn.*Yn zero_m zero_m 2.*Xn.*Zn zero_m zero_m 2.*Yn.*Zn Xn.^2 Yn.^2 3*Zn.^2]';
 
-du_dXn = [0 1 0 0 Yn(i) Zn(i) 0 2*Xn(i) 0 0 Yn(i)*Zn(i) 3*Xn(i)^2 Yn(i)^2 Zn(i)^2 2*Xn(i)*Yn(i) 0 0 2*Xn(i)*Zn(i) 0 0];
-du_dYn = [0 0 1 0 Xn(i) 0 Zn(i) 0 2*Yn(i) 0 Xn(i)*Zn(i) 0 2*Xn(i)*Yn(i) 0 Xn(i)^2 3*Yn(i)^2 Zn(i)^2 0 2*Yn(i)*Zn(i) 0];
-du_dZn = [0 0 0 1 0 Xn(i) Yn(i) 0 0 2*Zn(i) Xn(i)*Yn(i) 0 0 2*Xn(i)*Zn(i) 0 0 2*Yn(i)*Zn(i) Xn(i)^2 Yn(i)^2 3*Zn(i)^2];
+AG = zeros(2*m,3*n);
+scale_mat = diag([1/LONG_par(1) 1/LAT_par(1) 1/H_par(1)]);
+p1 = DRPC(:,1); p2 = DRPC(:,2); p3 = DRPC(:,3); p4 = DRPC(:,4);
+for i = 1:m
+    for j = 1:n
+        u_ = u(:,i);
+        AG(2*i-1,(j-1)*3+1:j*3) = (p1'*(p2'*u_) - p2'*(p1'*u_))/(p2'*u_)^2 ...
+            * [du_dXn(:,i) du_dYn(:,i) du_dZn(:,i)] * scale_mat * r_par(1);
+        AG(2*i,(j-1)*3+1:j*3) = (p3'*(p4'*u_) - p4'*(p3'*u_))/(p4'*u_)^2 ...
+            * [du_dXn(:,i) du_dYn(:,i) du_dZn(:,i)] * scale_mat * c_par(1);
+    end
+end
