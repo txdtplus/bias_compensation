@@ -1,4 +1,4 @@
-function [r,c] = cal_RPC(X,Y,Z,DRPC,n_par)
+ function [r,c] = cal_RPC(X,Y,Z,DRPC,n_par)
 %UNTITLED7 此处显示有关此函数的摘要
 %   此处显示详细说明
 LONG_par = n_par(:,1);

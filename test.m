@@ -23,27 +23,16 @@ for i = 1:GCPnum
     [r(i),c(i)] = cal_RPC(X(i),Y(i),Z(i),DRPC,Normalize_par);
 end
 cal_loc = [r,c];
-sub = cal_loc - real_loc;
+delta_loc = real_loc - cal_loc;
 
 %% least square
-[coff,A,L] = LSA(real_loc,sub);
-% nnnnn
-% figure;dddd
-% hold on;
-% plot(L,'*');
-% plot(A*coff);
-% hold off;
-% grid on;
+[coff,A,L] = LSA(real_loc,delta_loc);
+L_ = A*coff;
+compen_loc = zeros(size(real_loc));
+compen_loc(:,1) = L(1:2:end-1);
+compen_loc(:,2) = L(2:2:end);
+after_compen_loc = cal_loc + compen_loc;
+delta_loc2 = real_loc - after_compen_loc;
 
-% figure;
-% hold on;
-% axis([0 18609 0 22901]);
-% for i = 1:size(real_loc,1)
-%     F = plot([real_loc(i,2),cal_loc(i,2)],[real_loc(i,1),cal_loc(i,1)],'-*');
-%     set(F,'color','black');
-% end
-% hold off;
-% grid on;  xiaohuaidan
-% fggffdtfgh
-
+save data coff Normalize_par real_loc cal_loc DRPC X Y Z
 
