@@ -1,4 +1,4 @@
-classdef GCPs < handle
+classdef POINT < handle
     %points coordinates
     %
     
@@ -18,7 +18,7 @@ classdef GCPs < handle
     end
     
     methods
-        function obj = GCPs(geoloc,DRPC,Normalize_par)
+        function obj = POINT(geoloc,DRPC,Normalize_par)
             %UNTITLED3 构造此类的实例
             %   RPC is an RPC object
             obj.X =  geoloc(:,1);

@@ -47,7 +47,7 @@ classdef RPC < handle
             obj.SAMP_OFF = Normalize_par(2,5);
         end
         
-        function u = obj2poly(obj,POINTs)
+        function u = obj2poly(obj,geoloc)
             % geoloc should be a [m,3] matrix.
             % u is a [20,m] matrix, every column of u is polynomial for
             % calucating RPC. The polynomial cofficients are obj.p1, p2, p3
@@ -90,9 +90,7 @@ classdef RPC < handle
             r = r'; c = c';
         end
         
-%         function [dr,dc] = par_diff(obj,geoloc)
-%             
-%         end
+        function [dr,dc] = 
     end
 end
 
