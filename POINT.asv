@@ -8,10 +8,10 @@ classdef POINT < handle
     %   Yn is the normalized latitude of point in object space.
     %   Zn is the normalized height of point in object space.
     %
-    %   r is the line index of point in image space.
-    %   c is the latitude of point in image space.
-    %   rn is the normalized line index of point in image space.
-    %   cn is the normalized latitude of point in image space.
+    %   r is the line index of point in image space(caculate).
+    %   c is the latitude of point in image space(caculate).
+    %   rn is the normalized line index of point in image space(caculate).
+    %   cn is the normalized latitude of point in image space(caculate).
     %
     %   u is a [20,m] matrix, every column of u is polynomial for
     %   calucating RPC. The polynomial cofficients are obj.p1, p2, p3
@@ -34,6 +34,7 @@ classdef POINT < handle
         cn
         
         u
+        RPC
         m
     end
     
@@ -45,12 +46,11 @@ classdef POINT < handle
             %   geoloc(:,3) is the height of GCPs.
             % DRPC should be a [20,4] matrix.
             % Normalize_par should be a [2,5] matrix.
-            
             obj.X =  geoloc(:,1);
             obj.Y = geoloc(:,2);
             obj.Z = geoloc(:,3);
             
-            RPC_ = RPC(DRPC,Normalize_par);
+            onRPC_ = RPC(DRPC,Normalize_par);
             
             obj.Xn = (obj.X-RPC_.LONG_OFF)/RPC_.LONG_SCALE;
             obj.Yn = (obj.Y-RPC_.LAT_OFF)/RPC_.LAT_SCALE;
@@ -63,6 +63,12 @@ classdef POINT < handle
             obj.cn = (obj.c-RPC_.SAMP_OFF)/RPC_.SAMP_SCALE;
             
             obj.m = size(geoloc,1);
+        end
+        
+        function obj2poly(obj)
+            % u is a [20,m] matrix, every column of u is polynomial for
+            % calucating RPC. The polynomial cofficients are obj.p1, p2, p3
+            % and p4.
             
             obj.u = zeros(obj.m,20);
             obj.u(:,1) = ones(obj.m,1);                 obj.u(:,2) = obj.Xn;

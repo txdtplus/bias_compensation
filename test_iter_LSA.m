@@ -36,9 +36,9 @@ H_par = n_par(:,3);
 r_par = n_par(:,4);
 c_par = n_par(:,5);
 
-Xn = (X-LONG_par(2))/LONG_par(1);
-Yn = (Y-LAT_par(2))/LAT_par(1);
-Zn = (Z-H_par(2))/H_par(1);
+Xn = (geoloc(:,1)-LONG_par(2))/LONG_par(1);
+Yn = (geoloc(:,2)-LAT_par(2))/LAT_par(1);
+Zn = (geoloc(:,3)-H_par(2))/H_par(1);
 
 zero_m = zeros(m,1);
 one_m = ones(m,1);
