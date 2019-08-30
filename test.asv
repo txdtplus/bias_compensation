@@ -26,15 +26,13 @@ cal_loc = [r,c];
 delta_loc = real_loc - cal_loc;
 
 %% least square
-[coff,A,L] = LSA(cal_loc,delta_loc);   % use the calculated locs, not the real locs.
+[coff,A,L] = LSA(real_loc,delta_loc);   % use the calulated locs.
 L_ = A*coff;
 compen_loc = zeros(size(real_loc));
-compen_loc(:,1) = L_(1:2:end-1);        % L denotes delta_loc,L_ denotes A*X 
-                                        % which is the calculated error. 
-                                        % Here should be L_, not L.
+compen_loc(:,1) = L_(1:2:end-1);        % L denotes delta_loc,L_ denotes A*X. 
 compen_loc(:,2) = L_(2:2:end);
 after_compen_loc = cal_loc + compen_loc;
 delta_loc2 = real_loc - after_compen_loc;
 
-save data coff Normalize_par real_loc cal_loc DRPC X Y Z
+%save data coff Normalize_par real_loc cal_loc DRPC X Y Z
 
