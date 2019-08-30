@@ -23,13 +23,13 @@ rpc1 = RPC(DRPC,Normalize_par);
 cal_loc = rpc1.obj2img(gcps);
 delta_loc = real_loc - cal_loc; 
 %% least square
-[coff,A,L] = LSA(real_loc,delta_loc);
-L_ = A*coff;
+[coff0,A0,L] = LSA(real_loc,delta_loc);
+L_ = A0*coff0;
 compen_loc = zeros(size(real_loc));
 compen_loc(:,1) = L_(1:2:end-1);
 compen_loc(:,2) = L_(2:2:end);
 after_compen_loc = cal_loc + compen_loc;
 delta_loc2 = real_loc - after_compen_loc;
 
-save data coff Normalize_par real_loc cal_loc DRPC geoloc
+save data coff0 Normalize_par real_loc cal_loc DRPC geoloc A0 delta_loc2
 
