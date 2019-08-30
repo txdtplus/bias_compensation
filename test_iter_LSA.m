@@ -20,7 +20,7 @@ for i = 1:m
     for j = 1:n
         AG(2*i-1,3*(j-1)+1:3*j) = dr(i,:);
         AG(2*i,3*(j-1)+1:3*j) = dc(i,:);
-%         AA(:,6*(j-1)+1:6*j) = A0;
+        %         AA(:,6*(j-1)+1:6*j) = A0;
     end
 end
 A = [AA,AG];
@@ -29,30 +29,23 @@ A = [A;eye(9*n)];
 %% caculate w
 % F0_1 = zeros(2*m,10);
 % F0_2 = zeros(10,1);
-% 
-% for iter = 1:1
-%     xA = x(1:6);
-%     F0_2(1) = -1; F0_2(2:4) = xA(1:3); F0_2(5) = 1;
-%     F0_2(6) = -1; F0_2(7:9) = xA(4:6); F0_2(10) = 1;
-%     
-%     for i = 1:2:2*m
-%         F0_1(i,1) = r((i+1)/2);
-%         F0_1(i,2) = 1;
-%         F0_1(i,3) = r((i+1)/2);
-%         F0_1(i,4) = c((i+1)/2);
-%         F0_1(i,5) = cal_r((i+1)/2);
-%         
-%         F0_1(i+1,6) = c((i+1)/2);
-%         F0_1(i+1,7) = 1;
-%         F0_1(i+1,8) = r((i+1)/2);
-%         F0_1(i+1,9) = c((i+1)/2);
-%         F0_1(i+1,10) = cal_c((i+1)/2);
-%     end
-%     wp = -F0_1*F0_2;
-%     wA = zeros(3*n,1);
-%     wG = zeros(6*n,1);
-%     w = [wp;wA;wG];
-%     
-%     dx = pinv(A)*w;
-%     x = x + dx;
-% end
+wp = zeros(2*m,1);
+for iter = 1:100
+    xA = x(1:6);
+    L_ = A0*xA;
+    compen_loc = zeros(size(real_loc));
+    compen_loc(:,1) = L_(1:2:end-1);
+    compen_loc(:,2) = L_(2:2:end);
+    after_compen_loc = cal_loc + compen_loc;
+    delta_loc2 = real_loc - after_compen_loc;
+    for i = 1:m
+        wp(2*i-1) = delta_loc2(i,1);
+        wp(2*i) = delta_loc2(i,2);
+    end
+    wA = zeros(3*n,1);
+    wG = zeros(6*n,1);
+    w = [wp;wA;wG];
+    
+    dx = pinv(A)*w;
+    x = x + dx;
+end
