@@ -4,7 +4,7 @@ clear; clc; close all;
 [geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
 [DRPC,Normalize_par] = readrpc('RPC2.XML','xml');
 
-gcps = POINT(geoloc,real_loc,DRPC,Normalize_par);
+gcps = POINT(geoloc,DRPC,Normalize_par);
 rpc1 = RPC(DRPC,Normalize_par);
 
 cal_loc = rpc1.obj2img(gcps);
