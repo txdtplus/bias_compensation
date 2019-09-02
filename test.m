@@ -12,7 +12,7 @@ clear; clc; close all;
 % gamma = 0.7;
 % img2 =imadjust(imgRGB,[low_in high_in],[low_out, high_out],gamma);
 % imshow(img2);
-addpath('data')
+
 %% read RPC and GCP
 [geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
 [DRPC,IRPC,Normalize_par] = readrpc('RPC2.XML');
