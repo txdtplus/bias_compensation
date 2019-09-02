@@ -1,2 +1,12 @@
 clear; clc; close all;
 
+load data rpc1
+N
+vXn = linspace(-0.98,0.98,50);
+vYn = linspace(-0.98,0.98,50);
+vZn = 2*rand(1,50);
+
+vX = vXn * rpc1.LONG_SCALE + rpc1.LONG_OFF;
+vY = vYn * rpc1.LAT_SCALE + rpc1.LAT_OFF;
+vZ = vZn * rpc1.H_SCALE + rpc1.H_OFF;
+geoloc = [vX,vY,vZ];

@@ -38,13 +38,14 @@ classdef POINT < handle
     end
     
     methods
-        function obj = POINT(geoloc,DRPC,Normalize_par)
+        function obj = POINT(geoloc,DRPC,Normalize_par,real_loc)
             % geoloc should be a [m,3] matrix.
             %   geoloc(:,1) is the longitude of GCPs.
             %   geoloc(:,2) is the latitude of GCPs.
             %   geoloc(:,3) is the height of GCPs.
             % DRPC should be a [20,4] matrix.
             % Normalize_par should be a [2,5] matrix.
+            obj.m = size(geoloc,1);
             
             obj.X =  geoloc(:,1);
             obj.Y = geoloc(:,2);
@@ -56,14 +57,18 @@ classdef POINT < handle
             obj.Yn = (obj.Y-RPC_.LAT_OFF)/RPC_.LAT_SCALE;
             obj.Zn = (obj.Z-RPC_.H_OFF)/RPC_.H_SCALE;
             
-            obj.r = real_loc(:,1);
-            obj.c = real_loc(:,2);
-            
-            obj.rn = (obj.r-RPC_.LINE_OFF)/RPC_.LINE_SCALE;
-            obj.cn = (obj.c-RPC_.SAMP_OFF)/RPC_.SAMP_SCALE;
-            
-            obj.m = size(geoloc,1);
-            
+            if nargin == 4
+                obj.r = real_loc(:,1);
+                obj.c = real_loc(:,2);
+                obj.rn = (obj.r-RPC_.LINE_OFF)/RPC_.LINE_SCALE;
+                obj.cn = (obj.c-RPC_.SAMP_OFF)/RPC_.SAMP_SCALE;
+            else
+                obj.r = zeros(obj.m,1);
+                obj.c = zeros(obj.m,1);
+                obj.rn = zeros(obj.m,1);
+                obj.cn = zeros(obj.m,1);
+            end
+                                           
             obj.u = zeros(obj.m,20);
             obj.u(:,1) = ones(obj.m,1);                 obj.u(:,2) = obj.Xn;
             obj.u(:,3) = obj.Yn;                    obj.u(:,4) = obj.Zn;
@@ -77,6 +82,13 @@ classdef POINT < handle
             obj.u(:,19) = obj.Yn.^2.*obj.Zn;        obj.u(:,20) = obj.Zn.^3;
             
             obj.u = obj.u';
+        end
+        
+        function gen_rc(obj,cal_loc)
+            obj.r = cal_loc(:,1);
+            obj.c = cal_loc(:,2);
+            obj.rn = (obj.r-RPC_.LINE_OFF)/RPC_.LINE_SCALE;
+            obj.cn = (obj.c-RPC_.SAMP_OFF)/RPC_.SAMP_SCALE;
         end
     end
 end
