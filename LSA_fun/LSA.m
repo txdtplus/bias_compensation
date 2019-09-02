@@ -8,6 +8,7 @@ function [X,A,L] = LSA(real_loc,sub)
 %     [1 rm cm 0 0  0 ]
 %     [0 0  0  1 rm cm]
 %
+% X---> (A0 A1 A2 B0 B1 B2)^T
 %
 %     [\Delta r_1]
 %     [\Delta c_1]
