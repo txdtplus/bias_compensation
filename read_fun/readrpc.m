@@ -62,7 +62,7 @@ if(strcmp(fmt,'xml'))
     Normalize_par = [LONG_n,LAT_n,H_n,r_n,c_n];
     
 elseif(strcmp(fmt,'txt'))
-    rpc_file = fopen('RPC1.txt');
+    rpc_file = fopen(file_imput);
     rpc = textscan(rpc_file,'%s %f32 %s');
     fclose(rpc_file);
     
