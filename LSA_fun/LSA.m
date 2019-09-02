@@ -1,4 +1,4 @@
-function [X,A,L] = LSA(real_loc,sub)
+function [X,A,L] = LSA(cal_loc,sub)
 % Least Square Adjustment
 %   X = (A^T*A)^-1*A^T*L
 %     [1 r1 c1 0 0  0 ]
@@ -16,9 +16,9 @@ function [X,A,L] = LSA(real_loc,sub)
 %          ...
 %     [\Delta r_m]
 %     [\Delta c_m]
-m = size(real_loc,1);
-r = real_loc(:,1);
-c = real_loc(:,2);
+m = size(cal_loc,1);
+r = cal_loc(:,1);
+c = cal_loc(:,2);
 A = zeros(2*m,6);
 L = zeros(2*m,1);
 
