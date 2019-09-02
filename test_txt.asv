@@ -11,12 +11,10 @@ long_off = rpc{2}(4);   long_scale = rpc{2}(9);
 height_off = rpc{2}(5); height_scale = rpc{2}(10);
 
 n_par = zeros(2,5);
-DRPC = zeros(20,4);
+DRPC
 
 n_par(1,:) = [long_scale,lat_scale,height_scale,line_scale,samp_scale];
 n_par(2,:) = [long_off,lat_off,height_off,line_off,samp_off];
 
-DRPC(:,1) = rpc{2}(11:30);  DRPC(:,2) = rpc{2}(31:50);
-DRPC(:,3) = rpc{2}(51:70);  DRPC(:,4) = rpc{2}(71:90);
 
 

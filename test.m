@@ -15,7 +15,7 @@ clear; clc; close all;
 
 %% read RPC and GCP
 [geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
-[DRPC,IRPC,Normalize_par] = readrpc('RPC2.XML');
+[DRPC,Normalize_par] = readrpc('RPC2.XML','xml');
 
 gcps = POINT(geoloc,real_loc,DRPC,Normalize_par);
 rpc1 = RPC(DRPC,Normalize_par);
