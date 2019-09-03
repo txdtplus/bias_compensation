@@ -19,6 +19,6 @@ vcal_loc = rpc.obj2img(vgcp);
 %% compensation
 A = vgcp.gen_A();
 after_compen_loc = compensate(A,coff,vcal_loc);
-vgcp.update_rc(after_compen_loc);
+vgcp.update_rc(after_compen_loc,rpc);
 end
 

@@ -1,0 +1,18 @@
+clear; clc; close all;
+load vgcp
+
+%%
+m = vgcp.m;
+R = vgcp.rn;    
+C = vgcp.rn;
+
+u = (vgcp.u)';
+M = [u,u(:,2:end).*repmat(-R,1,19)];
+N = [u,u(:,2:end).*repmat(-C,1,19)];
+
+T = [M,zeros(size(M)); zeros(size(M)),N];
+G = [R;C];
+
+Q = pinv(T)*G;
+B = u*[1;Q(21:39)];
+D = u*[1;Q(60:)]
