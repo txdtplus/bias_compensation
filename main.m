@@ -24,3 +24,5 @@ delta_loc2 =  real_loc - after_compen_loc;      % calculate error after compensa
 %% generate vgcps(virtual ground control points)
 N = 100;                                        % number of vgcps
 vgcp = gen_vgcp(N,rpc1,coff0);
+
+save vgcp vgcp
