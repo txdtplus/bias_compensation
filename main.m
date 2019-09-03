@@ -24,16 +24,3 @@ delta_loc2 =  real_loc - after_compen_loc;      % calculate error after compensa
 %% generate virtual ground control points
 N = 100;
 vgcp = gen_vgcp(N,rpc1,coff0);
-
-% %% image reading and enhancing
-% [X,cmap] = imread('img.JP2');
-% img1 = double(X);
-% 
-% low_in = 0; high_in = 1;
-% low_out = 0; high_out = 1;
-% gamma = 0.7;
-% for i = 1:4
-%     img1(:,:,i) =imadjust(X(:,:,i),[low_in high_in],[low_out, high_out],gamma);
-%     img1(:,:,i) = img1(:,:,i)/max(max(img1(:,:,i)));
-% end
-% imshow(img1(:,:,1:3),[]);
