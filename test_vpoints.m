@@ -10,3 +10,7 @@ vX = vXn * rpc1.LONG_SCALE + rpc1.LONG_OFF;
 vY = vYn * rpc1.LAT_SCALE + rpc1.LAT_OFF;
 vZ = vZn * rpc1.H_SCALE + rpc1.H_OFF;
 vgeoloc = [vX,vY,vZ];
+
+vgcp = POINT(vgeoloc,rpc1);
+cal_loc = rpc1.obj2img(vgcp);
+vgcp.gen_rc(cal_loc,rpc1);
