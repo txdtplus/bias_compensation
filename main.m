@@ -11,7 +11,7 @@ gcps = POINT(geoloc,rpc1);
 %% caculate r, c using RPC
 cal_loc = rpc1.obj2img(gcps);
 gcps.gen_rc(cal_loc,rpc1)
-delta_loc = real_loc - cal_loc;     % calculate error before compensation
+delta_loc = real_loc - cal_loc;                 % calculate error before compensation
 
 %% least square
 A0 = gcps.gen_A();
@@ -19,10 +19,11 @@ A0 = gcps.gen_A();
 
 %% compensate
 after_compen_loc = compensate(A0,coff0,cal_loc);
-delta_loc2 =  real_loc - after_compen_loc;   % calculate error after compensation
+delta_loc2 =  real_loc - after_compen_loc;      % calculate error after compensation
 
-%% save data
-save data
+%% generate virtual ground control points
+N = 100;
+vgcp = gen_vgcp(N,rpc1,coff0);
 
 % %% image reading and enhancing
 % [X,cmap] = imread('img.JP2');

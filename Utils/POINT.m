@@ -103,6 +103,11 @@ classdef POINT < handle
                 A(2*i,6) = obj.c(i);
             end
         end
+        
+         function update_rc(obj,new_rc)
+             obj.r = new_rc(:,1);
+             obj.c = new_rc(:,2);
+         end
     end
 end
 
