@@ -47,6 +47,28 @@ classdef RPC < handle
             obj.SAMP_OFF = Normalize_par(2,5);
         end
         
+        function drpc = gen_drpc(obj)
+            drpc = zeros(20,4);
+            drpc(:,1) = obj.p1;
+            drpc(:,2) = obj.p2;
+            drpc(:,3) = obj.p3;
+            drpc(:,4) = obj.p4;
+        end
+        
+        function npar = gen_npar(obj)
+            npar = zeros(2,5);
+            npar(1,1) = obj.LONG_SCALE;
+            npar(2,1) = obj.LONG_OFF;
+            npar(1,2) = obj.LAT_SCALE;
+            npar(2,2) = obj.LAT_OFF;
+            npar(1,3) = obj.H_SCALE;
+            npar(2,3) = obj.H_OFF;
+            npar(1,4) = obj.LINE_SCALE;
+            npar(2,4) = obj.LINE_OFF;
+            npar(1,5) = obj.SAMP_SCALE;
+            npar(2,5) = obj.SAMP_OFF;
+        end
+        
         function cal_loc = obj2img(obj,POINT)
             % map from geographic coordinates to image coordinates
             %   POINT is a class
