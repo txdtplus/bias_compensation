@@ -85,17 +85,19 @@ classdef POINT < handle
         function A = gen_A(obj)
             m_ = obj.m;
             A = zeros(2*m_,6);
+            
             for i = 1:m_
                 A(2*i-1,1) = 1;
                 A(2*i-1,2) = obj.r(i);
                 A(2*i-1,3) = obj.c(i);
+                
                 A(2*i,4) = 1;
                 A(2*i,5) = obj.r(i);
                 A(2*i,6) = obj.c(i);
             end
         end
         
-        function update_rc(obj,new_rc,RPC)
+        function update_rc(obj,new_rc)
             obj.r = new_rc(:,1);
             obj.c = new_rc(:,2);
             obj.rn = (obj.r-RPC.LINE_OFF)/RPC.LINE_SCALE;
