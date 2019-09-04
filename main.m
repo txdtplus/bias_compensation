@@ -6,7 +6,7 @@ addpath('Utils')
 
 %% read RPC and GCP
 [geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
-[DRPC,Normalize_par] = readrpc('RPC2.XML','xml');
+[DRPC,Normalize_par] = readrpc('RPC2.xml','xml');
 
 %% generate rpc and gcp object
 rpc1 = RPC(DRPC,Normalize_par);
