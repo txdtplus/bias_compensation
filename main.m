@@ -28,6 +28,8 @@ vgcp = gen_vgcp(N-gcps.m,rpc1,coff0,gcps);
 %% caculate new RPC cofficients
 DRPC_new = gen_RPC(vgcp);
 rpc2 = RPC(DRPC_new,Normalize_par);
+
+
 % %% test new RPC
 % rpc2 = RPC(DRPC_new,Normalize_par);
 % gcps = POINT(geoloc,rpc2);
