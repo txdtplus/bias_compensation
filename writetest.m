@@ -57,7 +57,11 @@ for i = 1:90
             fprintf(rpc_out_file,'%.15E ',RPC{2}(i)); 
         end
     else
-        fprintf(rpc_out_file,'+%.8E ',RPC{2}(i));
+        if RPC{2}(i) > 0
+            fprintf(rpc_out_file,'+%.8E ',RPC{2}(i)); 
+        else
+            fprintf(rpc_out_file,'%.8E ',RPC{2}(i)); 
+        end
     end
     fprintf(rpc_out_file,'%s\n',RPC{3}{i});
 end
