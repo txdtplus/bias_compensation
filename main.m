@@ -29,10 +29,6 @@ vgcp = gen_vgcp(N-gcps.m,rpc1,coff0,gcps);
 DRPC_new = gen_RPC(vgcp);
 rpc2 = RPC(DRPC_new,Normalize_par);
 
-save rpc2 rpc2
-% %% test new RPC
-% rpc2 = RPC(DRPC_new,Normalize_par);
-% gcps = POINT(geoloc,rpc2);
-% cal_loc_new = rpc2.obj2img(gcps);
-% gcps.gen_rc(cal_loc_new,rpc2)
-% delta_loc3 = real_loc - cal_loc_new;
+%% write new RPC file
+fwriteRPC('new_RPC.txt',rpc2);
+
