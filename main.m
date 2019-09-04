@@ -1,4 +1,8 @@
 clear; clc; close all;
+addpath('data')
+addpath('read_and_write')
+addpath('algorithm')
+addpath('Utils')
 
 %% read RPC and GCP
 [geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
