@@ -1,4 +1,4 @@
 addpath('data')
-addpath('read_fun')
+addpath('read_and_write')
 addpath('algorithm')
 addpath('Utils')

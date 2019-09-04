@@ -30,5 +30,5 @@ DRPC_new = gen_RPC(vgcp);
 rpc2 = RPC(DRPC_new,Normalize_par);
 
 %% write new RPC file
-fwriteRPC('./data/new_RPC.txt',rpc2);
+fwriteRPC('*/new_RPC.txt',rpc2);
 
