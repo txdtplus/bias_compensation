@@ -47,10 +47,18 @@ RPC{3}{7} = 'pixels';   RPC{3}{8} = 'degrees';
 RPC{3}{9} = 'degrees';   RPC{3}{10} = 'meters';
 
 %% write RPC
-rpc_out_file = fopen('test.txt','w');
+rpc_out_file = fopen('new_RPC.txt','w');
 for i = 1:90   
-    fprintf(rpc_out_file,'%s ',RPC{1}{i});   
-    fprintf(rpc_out_file,'%1.15E ',RPC{2}(i));   
+    fprintf(rpc_out_file,'%s ',RPC{1}{i}); 
+    if i > 10
+        if RPC{2}(i) > 0
+            fprintf(rpc_out_file,'+%.15E ',RPC{2}(i)); 
+        else
+            fprintf(rpc_out_file,'%.15E ',RPC{2}(i)); 
+        end
+    else
+        fprintf(rpc_out_file,'+%.8E ',RPC{2}(i));
+    end
     fprintf(rpc_out_file,'%s\n',RPC{3}{i});
 end
 fclose(rpc_out_file);
