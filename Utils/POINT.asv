@@ -115,6 +115,28 @@ classdef POINT < handle
             end
         end
         
+        function A12 = gen_A12(obj)
+            m_ = obj.m;
+            A12 = zeros(2*m_,12);
+            for i = 1:m_
+                A12(2*i-1,1) = 1;
+                A12(2*i-1,2) = obj.rn(i);
+                A12(2*i-1,3) = obj.cn(i);
+                A12(2*i-1,4) = (obj.rn(i)).^2;
+                A12(2*i-1,5) = obj.rn(i).*obj.cn(i);
+                A12(2*i-1,6) = (obj.cn(i)).^2;
+                A12(2*i-1,7) = obj.rn(i).^;
+                A12(2*i-1,8) = (obj.cn(i)).^2;
+                
+                A12(2*i,7) = 1;
+                A12(2*i,8) = obj.rn(i);
+                A12(2*i,9) = obj.cn(i);
+                A12(2*i,10) = (obj.rn(i)).^2;
+                A12(2*i,11) = obj.rn(i).*obj.cn(i);
+                A12(2*i,12) = (obj.cn(i)).^2;
+            end
+        end
+        
         function update_rc(obj,new_rc,RPC)
             obj.r = new_rc(:,1);
             obj.c = new_rc(:,2);

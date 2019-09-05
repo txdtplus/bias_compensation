@@ -1,12 +1,12 @@
 function [X,L] = LSA(A,sub)
 % Least Square Adjustment
 %   X = (A^T*A)^-1*A^T*L
-%     [1 r1 c1 0 0  0 ]
-%     [0 0  0  1 r1 c1]
-% A = [1 r2 c2 0 0  0 ]
-%            ...
-%     [1 rm cm 0 0  0 ]
-%     [0 0  0  1 rm cm]
+%     [1 r1 c1 0 0  0 ]           [1 r1 c1 r1^2 r1*c1 c1^2 0 0 0 0 0 0]
+%     [0 0  0  1 r1 c1]           [0 0 0 0 0 0 1 r1 c1 r1^2 r1*c1 c1^2]
+% A = [1 r2 c2 0 0  0 ]  or   A = [1 r2 c2 r2^2 r2*c2 c2^2 0 0 0 0 0 0]
+%            ...                                    ...
+%     [1 rm cm 0 0  0 ]           [1 rm cm rm^2 rm*cm cm^2 0 0 0 0 0 0]
+%     [0 0  0  1 rm cm]           [0 0 0 0 0 0 1 rm cm rm^2 rm*cm cm^2]
 %
 % X---> (A0 A1 A2 B0 B1 B2)^T
 %
