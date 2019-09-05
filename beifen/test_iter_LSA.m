@@ -10,7 +10,7 @@ rpc1 = RPC(DRPC,Normalize_par);
 n = 1;   % image number
 m = gcps.m;
 r = gcps.r; cal_r = cal_loc(:,1);
-c = gcps.r; cal_c = cal_loc(:,2);
+c = gcps.c; cal_c = cal_loc(:,2);
 
 %% caculate A
 
@@ -56,4 +56,4 @@ compen_loc = zeros(size(cal_loc));
 compen_loc(:,1) = L2(1:2:end-1);
 compen_loc(:,2) = L2(2:2:end);
 after_compen_loc = cal_loc + compen_loc;
-delta_loc1 = real_loc - after_compen_loc;
+delta_loc_iter = real_loc - after_compen_loc;

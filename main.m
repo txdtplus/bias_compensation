@@ -36,3 +36,4 @@ rpc2 = RPC(DRPC_new,Normalize_par);
 %% write new RPC file
 fwriteRPC('./data/new_RPC.txt',rpc2);
 
+save data rpc1 geoloc coff0 A0 real_loc cal_loc
