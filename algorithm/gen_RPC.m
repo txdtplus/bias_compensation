@@ -13,7 +13,7 @@ G = [R;C];
 W = eye(2*m);
 error = 1;
 i = 0;
-while(error(end)>1e-7)
+while(error(end)>2e-7)
     Q = pinv(W*T)*W*G;
     B = u*[1;Q(21:39)];
     D = u*[1;Q(60:78)];

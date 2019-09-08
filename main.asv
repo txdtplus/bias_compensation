@@ -5,8 +5,8 @@ addpath('algorithm')
 addpath('Utils')
 
 %% read RPC and GCP
-[geoloc,real_loc,GCPnum] = readGCP('GCP3.xlsx');
-[DRPC,Normalize_par] = readrpc('new_RPC.txt','txt');
+[geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
+[DRPC,Normalize_par] = readrpc('RPC2.xml','xml');
 
 %% generate rpc and gcp object
 rpc1 = RPC(DRPC,Normalize_par);
@@ -38,6 +38,13 @@ rpc2 = RPC(DRPC_new,Normalize_par);
 
 %% write new RPC file
 fwriteRPC('./data/new_RPC.txt',rpc2);
+
+% figure;
+% hold on;
+% plot(abs([delta_loc(:,1);delta_loc(:,2),]));
+% plot(abs([delta_loc2(:,1);delta_loc2(:,2)]));
+% hold off;
+% legend('before compensate','after compensate');
 
 
 
