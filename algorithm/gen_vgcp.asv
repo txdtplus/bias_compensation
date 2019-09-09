@@ -3,28 +3,27 @@ function vgcp = gen_vgcp(N,rpc,coff,gcp,mode)
 %   vgcp is an object
 
 %% generate virtual points in object space
-vXn = (linspace(-0.98,0.98,N))';
-vYn = (linspace(-0.98,0.98,N))';
-vZn = 0.01*ones(N^2,1);
+vXn = (linspace(-0.98,0.98,sqrt(N)))';
+vYn = (linspace(-0.98,0.98,sqrt(N)))';
+vZn = 0.01*ones(N,1);
 
 vX = vXn * rpc.LONG_SCALE + rpc.LONG_OFF;
 vY = vYn * rpc.LAT_SCALE + rpc.LAT_OFF;
 vZ = vZn * rpc.H_SCALE + rpc.H_OFF;
 
-vgeoloc = zeros(N^2,3);
-for i = 1:N
-    vgeoloc((i-1)*N+1:i*N,1) = vX(i);
-    vgeoloc((i-1)*N+1:i*N,2) = vY;
+vgeoloc = zeros(N,1);
+for i = 1:sqrt(N)
+    vgeoloc((i-1)*sqrt(N)+1:i*sqrt(N),1) = vXn(i);
+    vgeoloc((i-1)*sqrt(N)+1:i*sqrt(N),2) = vYn;
 end
-vgeoloc(:,3) = vZ;
 if mode == 1
-    geoloc = [gcp.X(1:end-7),gcp.Y(1:end-7),gcp.Z(1:end-7);vgeoloc];
+    vgeoloc = [gcp.X(1:end-7),gcp.Y(1:end-7),gcp.Z(1:end-7);vX,vY,vZ];
 else
-    geoloc = vgeoloc;
+    vgeoloc = [vX,vY,vZ];
 end
 
 %% establish vgcp object
-vgcp = POINT(geoloc,rpc);
+vgcp = POINT(vgeoloc,rpc);
 vcal_loc = rpc.obj2img(vgcp);
 vgcp.gen_rc(vcal_loc,rpc);
 
