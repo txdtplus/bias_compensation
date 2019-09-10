@@ -34,6 +34,7 @@ classdef GEOPOINT < handle
         cn
         
         u
+        v
         m
     end
     
@@ -72,14 +73,30 @@ classdef GEOPOINT < handle
             obj.u(:,17) = obj.Yn.*obj.Zn.^2;        obj.u(:,18) = obj.Xn.^2.*obj.Zn;
             obj.u(:,19) = obj.Yn.^2.*obj.Zn;        obj.u(:,20) = obj.Zn.^3;
             
-            obj.u = obj.u';
-        end
+            obj.u = obj.u';           
+            obj.v = 0;
+        end 
         
-        function gen_rc(obj,cal_loc,RPC)
-            obj.r = cal_loc(:,1);
-            obj.c = cal_loc(:,2);
+        function update_rc(obj,new_rc,RPC)
+            obj.r = new_rc(:,1);
+            obj.c = new_rc(:,2);
             obj.rn = (obj.r-RPC.LINE_OFF)/RPC.LINE_SCALE;
             obj.cn = (obj.c-RPC.SAMP_OFF)/RPC.SAMP_SCALE;
+        end
+        
+        function gen_v(obj)
+            obj.v = zeros(obj.m,20);
+            obj.v(:,1) = ones(obj.m,1);             obj.v(:,2) = obj.cn;
+            obj.v(:,3) = obj.rn;                    obj.v(:,4) = obj.Zn;
+            obj.v(:,5) = obj.cn.*obj.rn;            obj.v(:,6) = obj.cn.*obj.Zn;
+            obj.v(:,7) = obj.rn.*obj.Zn;            obj.v(:,8) = obj.cn.^2;
+            obj.v(:,9) = obj.rn.^2;                 obj.v(:,10) = obj.Zn.^2;
+            obj.v(:,11) = obj.cn.*obj.rn.*obj.Zn;	obj.v(:,12) = obj.cn.^3;
+            obj.v(:,13) = obj.cn.*obj.rn.^2;        obj.v(:,14) = obj.cn.*obj.Zn.^2;
+            obj.v(:,15) = obj.cn.^2.*obj.rn;        obj.v(:,16) = obj.rn.^3;
+            obj.v(:,17) = obj.rn.*obj.Zn.^2;        obj.v(:,18) = obj.cn.^2.*obj.Zn;
+            obj.v(:,19) = obj.rn.^2.*obj.Zn;        obj.v(:,20) = obj.Zn.^3;           
+            obj.v = obj.v';
         end
         
         function A = gen_A(obj)
@@ -113,14 +130,7 @@ classdef GEOPOINT < handle
                 A12(2*i,11) = obj.rn(i).*obj.cn(i);
                 A12(2*i,12) = (obj.cn(i)).^2;
             end
-        end
-        
-        function update_rc(obj,new_rc,RPC)
-            obj.r = new_rc(:,1);
-            obj.c = new_rc(:,2);
-            obj.rn = (obj.r-RPC.LINE_OFF)/RPC.LINE_SCALE;
-            obj.cn = (obj.c-RPC.SAMP_OFF)/RPC.SAMP_SCALE;
-        end
+        end         
     end
 end
 

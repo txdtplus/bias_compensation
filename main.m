@@ -25,7 +25,7 @@ gcps = GEOPOINT(geoloc_train,rpc1);
 
 %% caculate r, c using RPC
 cal_loc = rpc1.obj2img(gcps);
-gcps.gen_rc(cal_loc,rpc1)
+gcps.update_rc(cal_loc,rpc1)
 delta_loc = real_loc_train - cal_loc;                 % calculate error before compensation
 
 %% least square
@@ -41,15 +41,17 @@ N = 10;                                        % sqrt of number of vgcps
 vgcp = gen_vgcp(N,rpc1,coff0,gcps,0);
 
 %% caculate new RPC cofficients
-DRPC_new = gen_RPC(vgcp);
-rpc2 = RPC(DRPC_new,Normalize_par);
+DRPC_new = gen_RPC(vgcp,'d');
+IRPC_new = gen_RPC(vgcp,'i');
+drpc2 = RPC(DRPC_new,Normalize_par);
+irpc2 = RPC(IRPC_new,Normalize_par);
 
 %% write new RPC file
-fwriteRPC('./data/new_RPC.txt',rpc2);
+fwriteRPC('./data/new_RPC.txt',drpc2);
 
 %% check points
-ckp = GEOPOINT(geoloc_check,rpc2);
-cal_loc2 = rpc2.obj2img(ckp);
+ckp = GEOPOINT(geoloc_check,drpc2);
+cal_loc2 = drpc2.obj2img(ckp);
 delta_loc3 = real_loc_check - cal_loc2;            % calculate error before compensation
 
 e1 = cal_error(delta_loc);

@@ -28,11 +28,12 @@ end
 %% establish vgcp object
 vgcp = GEOPOINT(geoloc,rpc);
 vcal_loc = rpc.obj2img(vgcp);
-vgcp.gen_rc(vcal_loc,rpc);
+vgcp.update_rc(vcal_loc,rpc);
 
 %% compensation
 A = vgcp.gen_A12();
 after_compen_loc = compensate(A,coff,vcal_loc);
 vgcp.update_rc(after_compen_loc,rpc);
+vgcp.gen_v;
 end
 
