@@ -21,7 +21,7 @@ real_loc_check = real_loc(trainnum+1:end,:);
 
 %% generate rpc and gcp object
 rpc1 = RPC(DRPC,Normalize_par);
-gcps = POINT(geoloc_train,rpc1);
+gcps = GEOPOINT(geoloc_train,rpc1);
 
 %% caculate r, c using RPC
 cal_loc = rpc1.obj2img(gcps);
@@ -48,7 +48,7 @@ rpc2 = RPC(DRPC_new,Normalize_par);
 fwriteRPC('./data/new_RPC.txt',rpc2);
 
 %% check points
-ckp = POINT(geoloc_check,rpc2);
+ckp = GEOPOINT(geoloc_check,rpc2);
 cal_loc2 = rpc2.obj2img(ckp);
 delta_loc3 = real_loc_check - cal_loc2;            % calculate error before compensation
 

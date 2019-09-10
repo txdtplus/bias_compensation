@@ -1,4 +1,4 @@
-classdef RPC < handle
+classdef IRPC < handle
     %RPC is a RPC object.
     %
     %
@@ -28,13 +28,13 @@ classdef RPC < handle
     end
     
     methods
-        function obj = RPC(DRPC,Normalize_par)
+        function obj = RPC(IRPC,Normalize_par)
             %DRPC should be a matrix :[20, 4]
             %   Normalize_par should be a matrix : [2, 5]
-            obj.p1 = DRPC(:,1);
-            obj.p2 = DRPC(:,2);
-            obj.p3 = DRPC(:,3);
-            obj.p4 = DRPC(:,4);
+            obj.p1 = IRPC(:,1);
+            obj.p2 = IRPC(:,2);
+            obj.p3 = IRPC(:,3);
+            obj.p4 = IRPC(:,4);
             obj.LONG_SCALE = Normalize_par(1,1);
             obj.LONG_OFF = Normalize_par(2,1);
             obj.LAT_SCALE = Normalize_par(1,2);
@@ -69,11 +69,11 @@ classdef RPC < handle
             npar(2,5) = obj.SAMP_OFF;
         end
         
-        function cal_loc = obj2img(obj,GEOPOINT)
+        function cal_loc = img2obj(obj,IMGPOINT)
             % map from geographic coordinates to image coordinates
-            %   GEOPOINT is a class
+            %   POINT is a class
             
-            u = GEOPOINT.u;
+            u = POINT.u;
             rn_ = obj.p1'*u./(obj.p2'*u);
             cn_ = obj.p3'*u./(obj.p4'*u);
             

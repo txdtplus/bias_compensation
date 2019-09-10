@@ -38,7 +38,7 @@ classdef GEOPOINT < handle
     end
     
     methods
-        function obj = POINT(geoloc,RPC)
+        function obj = GEOPOINT(geoloc,RPC)
             % geoloc should be a [m,3] matrix.
             %   geoloc(:,1) is the longitude of GCPs.
             %   geoloc(:,2) is the latitude of GCPs.

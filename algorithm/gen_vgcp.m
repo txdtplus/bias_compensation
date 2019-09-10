@@ -26,7 +26,7 @@ else
 end
 
 %% establish vgcp object
-vgcp = POINT(geoloc,rpc);
+vgcp = GEOPOINT(geoloc,rpc);
 vcal_loc = rpc.obj2img(vgcp);
 vgcp.gen_rc(vcal_loc,rpc);
 
