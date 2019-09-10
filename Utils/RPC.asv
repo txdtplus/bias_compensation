@@ -84,20 +84,21 @@ classdef RPC < handle
             cal_loc = [r_,c_];
         end
         
-        function geo_loc = img2obj(obj,POINT)
+function cal_loc = obj2img(obj,POINT)
             % map from geographic coordinates to image coordinates
             %   GEOPOINT is a class
             
-            v = POINT.v;
-            Yn_ = obj.p1'*v./(obj.p2'*v);
-            Xn_ = obj.p3'*v./(obj.p4'*v);  
-         
-            Y_ = Yn_ * obj.LAT_SCALE + obj.LAT_OFF;
-            X_ = Xn_ * obj.LONG_SCALE + obj.LONG_OFF;           
-            Y_ = Y_'; X_ = X_';
-            geo_loc = [Y_,X_];
+            u = POINT.u;
+            rn_ = obj.p1'*u./(obj.p2'*u);
+            cn_ = obj.p3'*u./(obj.p4'*u);
+            
+            r_ = rn_ * obj.LINE_SCALE + obj.LINE_OFF;
+            c_ = cn_ * obj.SAMP_SCALE + obj.SAMP_OFF;
+            
+            r_ = r_'; c_ = c_';
+            cal_loc = [r_,c_];
         end
-        
+
         function [dr,dc] = par_diff(obj,p)
             m = p.m;
             zero_m = zeros(m,1);
