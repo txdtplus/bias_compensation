@@ -1,6 +1,8 @@
 function vgcp = gen_vgcp(N,rpc,coff,gcp,mode)
 % generate virtual ground control points as well as real gcps
 %   vgcp is an object
+%   mode == 1: using vgcp and real gcps
+%   mode == 0: using vgcp only
 
 %% generate virtual points in object space
 vXn = (linspace(-0.98,0.98,N))';
@@ -18,7 +20,7 @@ for i = 1:N
 end
 vgeoloc(:,3) = vZ;
 if mode == 1
-    geoloc = [gcp.X(1:end-7),gcp.Y(1:end-7),gcp.Z(1:end-7);vgeoloc];
+    geoloc = [gcp.X,gcp.Y,gcp.Z;vgeoloc];
 else
     geoloc = vgeoloc;
 end
@@ -29,7 +31,7 @@ vcal_loc = rpc.obj2img(vgcp);
 vgcp.gen_rc(vcal_loc,rpc);
 
 %% compensation
-A = vgcp.gen_A();
+A = vgcp.gen_A12();
 after_compen_loc = compensate(A,coff,vcal_loc);
 vgcp.update_rc(after_compen_loc,rpc);
 end

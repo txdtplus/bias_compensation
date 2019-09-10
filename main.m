@@ -5,9 +5,9 @@ addpath('algorithm')
 addpath('Utils')
 
 %% read RPC and GCP
-trainnum = 30;
-[geoloc,real_loc,GCPnum] = readGCP('GCP2.xlsx');
-[DRPC,Normalize_par] = readrpc('RPC2.xml','xml');
+trainnum = 12;
+[geoloc,real_loc,GCPnum] = readGCP('GCP_IKONOS_bgrn.xlsx');
+[DRPC,Normalize_par] = readrpc('RPC_IKONOS_bgrn.txt','txt');
 
 %% train and check points
 geoloc_train = geoloc(1:trainnum,:);
@@ -29,7 +29,7 @@ gcps.gen_rc(cal_loc,rpc1)
 delta_loc = real_loc_train - cal_loc;                 % calculate error before compensation
 
 %% least square
-A0 = gcps.gen_A();
+A0 = gcps.gen_A12();
 [coff0,L] = LSA(A0,delta_loc);
 
 %% compensate
@@ -38,7 +38,7 @@ delta_loc2 =  real_loc_train - after_compen_loc;      % calculate error after co
 
 %% generate vgcps(virtual ground control points)
 N = 10;                                        % sqrt of number of vgcps
-vgcp = gen_vgcp(N,rpc1,coff0,gcps,1);
+vgcp = gen_vgcp(N,rpc1,coff0,gcps,0);
 
 %% caculate new RPC cofficients
 DRPC_new = gen_RPC(vgcp);
@@ -52,5 +52,7 @@ ckp = POINT(geoloc_check,rpc2);
 cal_loc2 = rpc2.obj2img(ckp);
 delta_loc3 = real_loc_check - cal_loc2;            % calculate error before compensation
 
-
+e1 = cal_error(delta_loc);
+e2 = cal_error(delta_loc2);
+e3 = cal_error(delta_loc3);
 
