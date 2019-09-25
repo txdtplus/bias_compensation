@@ -20,13 +20,13 @@ G = [R;C];
 W = eye(2*m);
 error = 1;
 i = 0;
-while(error(end)>0.5)
+while(error(end)>0.9)
     Q = pinv(W*T)*W*G;
     B = u*[1;Q(21:39)];
     D = u*[1;Q(60:78)];
     W = diag([1./B',1./D']);
     V = W*T*Q - W*G;
-    i = i + 1;
+    i = i + 1
     error(i) = norm(V);
 end
 figure;

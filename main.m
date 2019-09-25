@@ -6,7 +6,7 @@ addpath('Utils')
 
 %% read RPC and GCP
 trainnum = 0;
-[geoloc,real_loc,GCPnum] = readGCP('GCP_IKONOS_bgrn.xlsx');
+[geoloc,real_loc,GCPnum] = readGCP('GCP_IKONOS_pan1.xlsx');
 [DRPC,Normalize_par] = readrpc('RPC_IKONOS_pan1.txt','txt');
 
 %% train and check points
