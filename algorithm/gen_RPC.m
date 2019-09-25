@@ -20,7 +20,7 @@ G = [R;C];
 W = eye(2*m);
 error = 1;
 i = 0;
-while(error(end)>2e-6)
+while(error(end)>5e-7)
     Q = pinv(W*T)*W*G;
     B = u*[1;Q(21:39)];
     D = u*[1;Q(60:78)];
@@ -29,6 +29,7 @@ while(error(end)>2e-6)
     i = i + 1;
     error(i) = norm(V);
 end
+figure;
 plot(error);
 grid on;
 title('iteration error');
