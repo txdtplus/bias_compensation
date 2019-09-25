@@ -11,7 +11,7 @@ vZn = 0*ones(N^2,1);
 
 vX = vXn * rpc.LONG_SCALE + rpc.LONG_OFF;
 vY = vYn * rpc.LAT_SCALE + rpc.LAT_OFF;
-vZ = vZn * rpc.H_SCALE + rpc.H_OFF
+vZ = vZn * rpc.H_SCALE + rpc.H_OFF;
 
 vgeoloc = zeros(N^2,3);
 for i = 1:N

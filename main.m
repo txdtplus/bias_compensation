@@ -48,7 +48,7 @@ irpc2 = RPC(IRPC_new,Normalize_par);
 
 %% write new RPC file
 fwriteRPC('./data/new_RPC.txt',drpc2);
-fwriteRPC('./data/new_IRPC.txt',irpc2);
+fwriteRPC('./data/IRPC_IKONOS_pan1.txt',irpc2);
 
 %% check points
 ckp = POINT(geoloc_check,drpc2);
