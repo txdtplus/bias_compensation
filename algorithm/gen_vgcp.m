@@ -7,11 +7,11 @@ function vgcp = gen_vgcp(N,rpc,coff,gcp,mode)
 %% generate virtual points in object space
 vXn = (linspace(-0.98,0.98,N))';
 vYn = (linspace(-0.98,0.98,N))';
-vZn = 0.01*ones(N^2,1);
+vZn = 0*ones(N^2,1);
 
 vX = vXn * rpc.LONG_SCALE + rpc.LONG_OFF;
 vY = vYn * rpc.LAT_SCALE + rpc.LAT_OFF;
-vZ = vZn * rpc.H_SCALE + rpc.H_OFF;
+vZ = vZn * rpc.H_SCALE + rpc.H_OFF
 
 vgeoloc = zeros(N^2,3);
 for i = 1:N

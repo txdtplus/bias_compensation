@@ -5,9 +5,9 @@ addpath('algorithm')
 addpath('Utils')
 
 %% read RPC and GCP
-trainnum = 12;
+trainnum = 0;
 [geoloc,real_loc,GCPnum] = readGCP('GCP_IKONOS_bgrn.xlsx');
-[DRPC,Normalize_par] = readrpc('RPC_IKONOS_bgrn.txt','txt');
+[DRPC,Normalize_par] = readrpc('RPC_IKONOS_pan1.txt','txt');
 
 %% train and check points
 geoloc_train = geoloc(1:trainnum,:);
@@ -37,7 +37,7 @@ after_compen_loc = compensate(A0,coff0,cal_loc);
 delta_loc2 =  real_loc_train - after_compen_loc;      % calculate error after compensation
 
 %% generate vgcps(virtual ground control points)
-N = 0;                                        % sqrt of number of vgcps
+N = 100;                                        % sqrt of number of vgcps
 vgcp = gen_vgcp(N,rpc1,coff0,gcps,0);
 
 %% caculate new RPC cofficients
